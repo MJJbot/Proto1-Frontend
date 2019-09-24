@@ -37,7 +37,7 @@
                 <v-dialog v-model="dialog" max-width="500px">
                   <v-card>
                     <v-card-title class="headline grey lighten-3">
-                      <span class="headline">{{ formTitle }}</span>
+                      <span class="headline">답변 작성</span>
                     </v-card-title>
 
                     <v-card-text>
@@ -170,11 +170,6 @@
       },
       datas:[],}),
 
-    computed: {
-      formTitle () {
-        return this.editedIndex === -1 ? '질문 추가' : '질문 수정'
-      },
-    },
 
     watch: {
       dialog (val) {
@@ -241,9 +236,6 @@
       closeChatting(){
         this.isOpen = false
       }
-      // sendMessage () {
-      //   this.message = ''
-      // }
     }
   }
 

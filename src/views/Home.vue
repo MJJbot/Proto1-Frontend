@@ -3,7 +3,6 @@
    <v-app light>
     <v-content>
       <v-container fill-height>
-        <!-- <v-parallax src="../assets/img.png" height="600"> -->
           <v-layout
             column
             align-center
@@ -38,7 +37,6 @@
 
 
           </v-layout>
-        <!-- </v-parallax> -->
       </v-container>
 
     </v-content>

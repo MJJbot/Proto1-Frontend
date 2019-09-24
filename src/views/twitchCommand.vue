@@ -33,12 +33,9 @@
                 ></v-divider>
                 <v-toolbar-text>트위치 명령어의 답변을 설정해주세요. 같은 종류의 질문은 자동으로 인식합니다.</v-toolbar-text>
                 <v-dialog v-model="dialog" max-width="500px">
-                  <!-- <template v-slot:activator="{ on }">
-                    <v-btn color="primary" dark class="mb-2" v-on="on">질문 추가</v-btn>
-                  </template> -->
                   <v-card>
                     <v-card-title class="headline grey lighten-3">
-                      <span class="headline">{{ formTitle }}</span>
+                      <span class="headline">명령어 답변 포맷 수정</span>
                     </v-card-title>
 
                     <v-card-text>
@@ -158,12 +155,6 @@
         Answer: ''
       },
       datas:[],}),
-
-    computed: {
-      formTitle () {
-        return this.editedIndex === -1 ? '질문 추가' : '명령어 답변 포맷 수정'
-      },
-    },
 
     watch: {
       dialog (val) {
