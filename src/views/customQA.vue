@@ -192,7 +192,10 @@
 
     methods: {
       update () {
-        axios.get('http://211.254.217.44:8892/api/v1/command')
+        const api = axios.create({
+          withCredentials: true
+        });
+        api.get('http://211.254.217.44:8893/customQA')
         .then((result) => {
           this.questions = result.data
         })

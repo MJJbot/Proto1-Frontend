@@ -17,7 +17,7 @@
               color="blue lighten-2"
               dark
               large
-              href="http://211.254.217.44:8892/accounts/twitch/login"
+              href="http://211.254.217.44:8893/auth/oauth/twitch"
             >스트리머 로그인
             </v-btn>
             <v-btn
@@ -25,7 +25,7 @@
               color="blue lighten-2"
               dark
               large
-              href="http://211.254.217.44:8892/accounts/twitch/login"
+              href="http://211.254.217.44:8893/auth/oauth/twitch"
             >시청자 로그인
             </v-btn>
             <router-link to="/dashboard">
@@ -55,7 +55,7 @@
   },
   methods: {
     hi(){
-      axios.get('http://211.254.217.44:8892/accounts/twitch/login')
+      axios.get('http://211.254.217.44:8893/auth/oauth/twitch')
     }
   }
 }
