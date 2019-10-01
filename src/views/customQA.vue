@@ -143,7 +143,7 @@
       message: '',
       drawer: null,
       isOpen: false,
-      userName:"openkmj",
+      userName:"None",
       imgURL:"https://static-cdn.jtvnw.net/user-default-pictures/0ecbb6c3-fecb-4016-8115-aa467b7c36ed-profile_image-70x70.jpg",
       page:1,
       pageCount:0,
@@ -187,7 +187,18 @@
     },
 
     created: function() {
-      this.update()
+      const api = axios.create({
+          withCredentials: true
+        });
+      api.get('http://211.254.217.44:8893/api/user_session')
+      .then((result) => {
+        if(result.data.sessionValid){
+          this.update()
+        }
+        else{
+          this.$router.push({name:'home'})
+        }
+      })
     },
 
     methods: {
@@ -197,7 +208,9 @@
         });
         api.get('http://211.254.217.44:8893/customQA')
         .then((result) => {
-          this.questions = result.data
+          this.questions = result.data.QAlist
+          this.userName = result.data.userName
+          this.imgURL = result.data.userImg
         })
       },
       editItem (item) {
@@ -208,8 +221,11 @@
 
       deleteItem (item) {
         const index = this.questions.indexOf(item)
+        const api = axios.create({
+          withCredentials: true
+        });
         // confirm('Are you sure you want to delete this item?') &&
-        axios.delete('http://211.254.217.44:8892/api/v1/command/'+this.questions[index].id)
+        api.delete('http://211.254.217.44:8893/customQA/'+this.questions[index].id)
         .then(()=>{
           this.update()
         })
@@ -224,13 +240,16 @@
       },
 
       save () {
+        const api = axios.create({
+          withCredentials: true
+        });
         if (this.editedIndex > -1) {
-          axios.put('http://211.254.217.44:8892/api/v1/command/'+this.questions[this.editedIndex].id, this.editedItem)
+          api.put('http://211.254.217.44:8893/customQA/'+this.questions[this.editedIndex].id, this.editedItem)
           .then(()=>{
             this.update()
           })
         } else {
-          axios.post('http://211.254.217.44:8892/api/v1/command',this.editedItem)
+          api.post('http://211.254.217.44:8893/customQA',this.editedItem)
           .then(()=>{
             this.update()
           })

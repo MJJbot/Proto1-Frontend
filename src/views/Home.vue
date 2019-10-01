@@ -55,6 +55,9 @@
   },
   methods: {
     hi(){
+      const api = axios.create({
+          withCredentials: true
+        });
       axios.get('http://211.254.217.44:8893/auth/oauth/twitch')
     }
   }

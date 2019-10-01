@@ -35,15 +35,15 @@
                 <v-dialog v-model="dialog" max-width="500px">
                   <v-card>
                     <v-card-title class="headline grey lighten-3">
-                      <span class="headline">명령어 답변 포맷 수정</span>
+                      <span class="headline">"{{editedItem.type}}" 명령어 수정</span>
                     </v-card-title>
 
                     <v-card-text>
                       <v-container>
                         <v-row>
                           <v-col cols="12">
-                            <v-text-field v-if="editedIndex===-1" v-model="editedItem.Question" label="명령어"></v-text-field>
-                            <v-text-field v-else v-model="editedItem.Question" disabled label="명령어"></v-text-field>
+                            <v-text-field v-if="editedIndex===-1" v-model="editedItem.Command" label="명령어"></v-text-field>
+                            <v-text-field v-else v-model="editedItem.Command" label="명령어"></v-text-field>
                           </v-col>
                         </v-row>
                         <v-row>
@@ -132,26 +132,29 @@
       dialog: false,
       headers: [
           {
-            text: '명령어',
+            text: '명령어 타입',
             align: 'left',
-            value: 'Question',
-            width:'300px'
+            value: 'type',
+            width:'150px'
           },
+          { text: '명령어', value: 'Command', width:'150px',},
           { text: '답변 포맷', value: 'Answer', width:'300px',},
           { text: 'Actions', value: 'action',}
       ],
       questions: [
-        {Question:"!업타임",Answer:"방송 업타임: $uptime"},
-        {Question:"!방제",Answer:"현재 방송제목: $title"},
-        {Question:"!후원",Answer:"https://twip.kr.donate/$channel"}
+        {type:"업타임",Command:"!업타임",Answer:"방송 업타임: $uptime"},
+        {type:"방 제목",Command:"!방제",Answer:"현재 방송제목: $title"},
+        {type:"후원 링크",Command:"!후원",Answer:"https://twip.kr.donate/$channel"}
       ],
       editedIndex: -1,
       editedItem: {
-        Question: '',
+        type: '',
+        Command: '',
         Answer: ''
       },
       defaultItem: {
-        Question: '',
+        type: '',
+        Command: '',
         Answer: ''
       },
       datas:[],}),

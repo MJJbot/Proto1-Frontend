@@ -75,15 +75,6 @@
     </v-btn>
     <ChattingRoom v-if="this.isOpen===true" v-on:close="closeChatting">
     </ChattingRoom>
-    <!-- <v-navigation-drawer
-      v-model="right"
-      app
-      clipped
-      right
-      width = "450px"
-    >
-      <ChatRoom/>
-    </v-navigation-drawer> -->
 
 
   </v-app>
@@ -110,12 +101,29 @@
       drawer: null,
       isOpen: false,
       bot:false,
-      userName:"openkmj",
-      u:"openkmj",
+      userName:"None",
       imgURL:"https://static-cdn.jtvnw.net/user-default-pictures/0ecbb6c3-fecb-4016-8115-aa467b7c36ed-profile_image-70x70.jpg",
-      }),
+      }
+    ),
 
     created(){
+      const api = axios.create({
+          withCredentials: true
+        });
+      api.get('http://211.254.217.44:8893/api/user_session')
+      .then((result) => {
+        if(result.data.sessionValid){
+          this.userName = result.data.userName
+          api.get('http://211.254.217.44:8893/dashboard')
+          .then((result) => {
+            this.imgURL = result.data.userImg
+            this.bot = result.data.botIn
+          })
+        }
+        else{
+          this.$router.push({name:'home'})
+        }
+      })
     },
     methods: {
       botIn(){

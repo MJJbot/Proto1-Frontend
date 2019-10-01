@@ -85,7 +85,7 @@
               </v-icon>
             </template>
             <template v-slot:no-data>
-              질문을 추가하세요.
+              자동 추가된 질문이 없습니다. 방송을 진행해주세요.
             </template>
           </v-data-table>
           <div class="text-center pt-2">
@@ -148,7 +148,7 @@
       dialog: false,
       headers: [
           {
-            text: '자주 나오는 질문',
+            text: '자주 나왔던 질문',
             align: 'left',
             value: 'Question',
             width:'300px'

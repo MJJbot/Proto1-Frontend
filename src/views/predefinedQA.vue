@@ -37,7 +37,7 @@
                 <v-dialog v-model="dialog" max-width="500px">
                   <v-card>
                     <v-card-title class="headline grey lighten-3">
-                      <span class="headline">답변 작성</span>
+                      <span class="headline">"{{editedItem.type}}" 관련 질문</span>
                     </v-card-title>
 
                     <v-card-text>
@@ -50,7 +50,7 @@
                         </v-row>
                         <v-row>
                           <v-col cols="12">
-                            <v-text-field v-model="editedItem.Command" disabled label="명령어"></v-text-field>
+                            <v-text-field v-model="editedItem.Command" label="명령어"></v-text-field>
                           </v-col>
                         </v-row>
                         <v-row>
@@ -141,29 +141,32 @@
       dialog: false,
       headers: [
           {
-            text: '자주 나오는 질문',
+            text: '질문 유형',
             align: 'left',
-            value: 'Question',
-            width:'300px'
+            value: 'type',
+            width:'150px'
           },
-          { text: '명령어', value: 'Command', width:'200px',},
-          { text: '답변', value: 'Answer', width:'300px',},
+          { text: '명령어', value: 'Command', width:'150px',},
+          { text: '질문 예시', value: 'Question', width:'200px',},
+          { text: '답변 예시', value: 'Answer', width:'300px',},
           { text: 'Actions', value: 'action',}
       ],
       questions: [
-        {Question:"이름이 뭐에요?",Command:"!이름",Answer:"게임 방송하는 김민재라고합니다."},
-        {Question:"나이가 어떻게 되세요?",Command:"!나이",Answer:"21살입니다."},
-        {Question:"오늘 게임 뭐해요?",Command:"!오늘게임",Answer:"1부 롤, 2부 하스스톤입니다."},
-        {Question:"마우스 뭐 쓰세요?",Command:"!마우스",Answer:""},
-        {Question:"지금 롤 티어가 어디임?",Command:"!롤티어",Answer:""}
+        {type:"이름",Question:"이름이 뭐에요?",Command:"!이름",Answer:"게임 방송하는 김민재라고합니다."},
+        {type:"나이",Question:"나이가 어떻게 되세요?",Command:"!나이",Answer:"21살입니다."},
+        {type:"게임",Question:"오늘 게임 뭐해요?",Command:"!오늘게임",Answer:"1부 롤, 2부 하스스톤입니다."},
+        {type:"마우스",Question:"마우스 뭐 쓰세요?",Command:"!마우스",Answer:""},
+        {type:"롤티어",Question:"지금 롤 티어가 어디임?",Command:"!롤티어",Answer:""}
       ],
       editedIndex: -1,
       editedItem: {
+        type:'',
         Question: '',
         Answer: '',
         Command: ''
       },
       defaultItem: {
+        type:'',
         Question: '',
         Answer: '',
         Command: ''
