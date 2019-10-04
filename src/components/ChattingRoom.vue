@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  // import axios from 'axios';
+  import axios from 'axios';
   import Chat from './forChat/Chat.vue'
   export default {
     components: {
@@ -80,7 +80,13 @@
 
     methods: {
       onMessageSubmit: function(message){
-        //here you can set any behavior
+        const api = axios.create({
+          withCredentials: true
+        });
+        api.post('http://211.254.217.44:8893/testchat',message)
+        .then((result)=>{
+          this.messages.push(Object.assign(result.data,{myself:false,participantId:1}))
+        })
       },
       close(){
         this.$emit('close');
