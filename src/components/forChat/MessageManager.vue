@@ -57,7 +57,7 @@ export default {
             'newMessage'
         ]),
         sendMessage: function(){
-            this.textInput = this.$refs.userInput.textContent;
+            this.textInput = this.$refs.userInput.textContent.replace('\n', '');
             this.$refs.userInput.textContent = '';
 
             if(this.textInput){
