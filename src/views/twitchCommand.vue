@@ -171,9 +171,20 @@
 
     methods: {
       update () {
-        axios.get('http://211.254.217.44:8892/api/v1/command')
+        const api = axios.create({
+          withCredentials: true
+        });
+        api.get('http://211.254.217.44:8893/twitchCommand')
         .then((result) => {
-          this.questions = result.data
+          if(result.data.sessionValid){
+            this.questions = result.data.QAlist
+            this.userName = result.data.userName
+            this.imgURL = result.data.userImg
+          }
+          else{
+            this.$router.push({name:'home'})
+          }
+
         })
       },
       editItem (item) {
@@ -183,12 +194,7 @@
       },
 
       deleteItem (item) {
-        const index = this.questions.indexOf(item)
-        // confirm('Are you sure you want to delete this item?') &&
-        axios.delete('http://211.254.217.44:8892/api/v1/command/'+this.questions[index].id)
-        .then(()=>{
-          this.update()
-        })
+
       },
 
       close () {
@@ -200,17 +206,13 @@
       },
 
       save () {
-        if (this.editedIndex > -1) {
-          axios.put('http://211.254.217.44:8892/api/v1/command/'+this.questions[this.editedIndex].id, this.editedItem)
-          .then(()=>{
-            this.update()
-          })
-        } else {
-          axios.post('http://211.254.217.44:8892/api/v1/command',this.editedItem)
-          .then(()=>{
-            this.update()
-          })
-        }
+        const api = axios.create({
+          withCredentials: true
+        });
+        api.put('http://211.254.217.44:8893/twitchCommand/'+this.questions[this.editedIndex].id, this.editedItem)
+        .then((result) => {
+          this.update()
+        })
         this.close()
       },
 

@@ -110,7 +110,7 @@
       const api = axios.create({
           withCredentials: true
         });
-      api.get('http://211.254.217.44:8893/api/user_session')
+      api.get('http://211.254.217.44:8893/user_session')
       .then((result) => {
         if(result.data.sessionValid){
           this.userName = result.data.userName
