@@ -19,11 +19,25 @@
             :items="questions"
             :page.sync="page"
             :items-per-page="itemsPerPage"
+            :search="cur_category.key"
             class="elevation-1"
             disable-sort
             hide-default-footer
             @page-count="pageCount = $event"
           >
+          <!-- <v-data-table
+            show-select
+            item-key="Question"
+            v-model="selected"
+            :headers="headers"
+            :items="questions"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            class="elevation-1"
+            disable-sort
+            hide-default-footer
+            @page-count="pageCount = $event"
+          > -->
             <template v-slot:top>
               <v-toolbar flat color="white">
                 <v-toolbar-title>Pre-defined Q&A</v-toolbar-title>
@@ -69,6 +83,16 @@
                   </v-card>
                 </v-dialog>
               </v-toolbar>
+              <v-select
+                v-model="cur_category"
+                :items="category"
+                item-text="name"
+                item-value="name"
+                label="선택"
+                return-object
+                single-line
+              ></v-select>
+              <!-- <v-text-field v-model="search" label="Search!" class="mx-4"></v-text-field> -->
             </template>
             <template v-slot:item.action="{ item }">
               <v-icon
@@ -139,24 +163,28 @@
       pageCount:0,
       itemsPerPage:30,
       dialog: false,
+      selected: [],
+      search: '이',
+      cur_category: {name:'전체',key:''},
+      category: [{name:'전체',key:''}, {name:'일반 프로필',key:'일반 프로필'},{name:'방송 설정',key:'방송 설정'},{name:'장비 설정',key:'장비 설정'},{name:'게임 설정',key:'게임 설정'}],
       headers: [
           {
             text: '질문 유형',
             align: 'left',
             value: 'type',
-            width:'150px'
+            width:'200px'
           },
           { text: '명령어', value: 'Command', width:'150px',},
           { text: '질문 예시', value: 'Question', width:'200px',},
-          { text: '답변 예시', value: 'Answer', width:'300px',},
+          { text: '답변 예시', filterable: false, value: 'Answer', width:'300px',},
           { text: 'Actions', value: 'action',}
       ],
       questions: [
-        {type:"이름",Question:"이름이 뭐에요?",Command:"!이름",Answer:"게임 방송하는 김민재라고합니다."},
-        {type:"나이",Question:"나이가 어떻게 되세요?",Command:"!나이",Answer:"21살입니다."},
-        {type:"게임",Question:"오늘 게임 뭐해요?",Command:"!오늘게임",Answer:"1부 롤, 2부 하스스톤입니다."},
-        {type:"마우스",Question:"마우스 뭐 쓰세요?",Command:"!마우스",Answer:""},
-        {type:"롤티어",Question:"지금 롤 티어가 어디임?",Command:"!롤티어",Answer:""}
+        {type:"일반 프로필 - 이름",Question:"이름이 뭐에요?",Command:"!이름",Answer:"게임 방송하는 김민재라고합니다.",c_id:"1"},
+        {type:"일반 프로필 - 나이",Question:"나이가 어떻게 되세요?",Command:"!나이",Answer:"21살입니다.",c_id:"1"},
+        {type:"방송 설정 - 게임",Question:"오늘 게임 뭐해요?",Command:"!오늘게임",Answer:"1부 롤, 2부 하스스톤입니다.",c_id:"2"},
+        {type:"장비 설정 - 마우스",Question:"마우스 뭐 쓰세요?",Command:"!마우스",Answer:"",c_id:"3"},
+        {type:"일반 프로필 - 롤티어",Question:"지금 롤 티어가 어디임?",Command:"!롤티어",Answer:"",c_id:"3"}
       ],
       editedIndex: -1,
       editedItem: {
@@ -195,6 +223,14 @@
             this.questions = result.data.QAlist
             this.userName = result.data.userName
             this.imgURL = result.data.userImg
+            for(var i in result.data.category){
+              this.category = [],
+              this.category.push({name:i,key:i})
+            }
+            this.category = result.data.category
+            for(var i in this.question){
+              i.type = this.category[c_id] +' - ' + i.type
+            }
           }
           else{
             this.$router.push({name:'home'})
