@@ -27,21 +27,7 @@
         </div>
       </v-card>
       <v-container class="fill-height" fluid>
-        <v-row>
-          <v-card class="mx-auto">
-            <div style='padding:10px'>
-              <h2>Chat</h2>
-              <iframe frameborder="0"
-                scrolling="no"
-                id="chat_embed"
-                src="https://www.twitch.tv/embed/openkmj/chat"
-                height="400"
-                width="350">
-              </iframe>
-            </div>
-          </v-card>
-        </v-row>
-
+        
       </v-container>
 
       <v-footer
